@@ -163,9 +163,9 @@ class Bot {
         telegramCommands.setWebhook(url, this.botKey, this.botName);
     }
 
-    getUpdates() {
+    getUpdates(timeout: number) {
         if (!this.initialized) return;
-        telegramCommands.getUpdates(this.botKey, this.lastUpdate, this);
+        telegramCommands.getUpdates(this.botKey, this.lastUpdate, timeout, this);
     }
 
     setLastUpdate(update: number) {
