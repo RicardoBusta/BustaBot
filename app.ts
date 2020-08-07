@@ -1,13 +1,15 @@
 process.env.NTBA_FIX_319 = "1";
 
-import TelegramBot = require("node-telegram-bot-api");
 import botInfo from './bot_info.json';
 import BotInfoEntry from "./bot/types/bot_info_entry";
+import bustabot from "./bot/bustabot/bustabot";
+import jukebot from "./bot/bustabot/bustabot";
+import Bot from './bot/bot';
 
-// const bots: Array<Bot> = [
-//      bustabot,
-//      jukebot,
-// ];
+const bots: Array<Bot> = [
+    bustabot,
+    jukebot,
+];
 
 let isProd: boolean = false;
 
@@ -19,27 +21,11 @@ process.argv.forEach(function name(val, index, arr) {
 
 function getBotData(botAlias: string): BotInfoEntry {
     let buildType = isProd ? "prod" : "dev";
-    return botInfo[botAlias][buildType];
+    return botInfo[buildType][botAlias];
 }
 
-const options = !isProd ? {
-    polling: true
-} : {}
-
-const bot = new TelegramBot(getBotData("bustabot").key, options);
-
-console.log("Key: " + getBotData("bustabot").key);
-
-bot.onText(/\/echo (.+)/, function onEchoText(msg, match) {
-    const resp = match[1];
-    bot.sendMessage(msg.chat.id, resp);
-});
-
-bot.on('message', (msg) => {
-    const chatId = msg.chat.id;
-
-    // send a message to the chat acknowledging receipt of their message
-    bot.sendMessage(chatId, 'Received your message');
+bots.forEach(bot => {
+    bot.init(getBotData(bot.alias), isProd);
 });
 
 

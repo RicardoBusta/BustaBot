@@ -1,24 +1,24 @@
 {
     "host-url": "base-url-for-webhooks",
     "project-id": "busta-chatbots",
+    "dev": {
         "bustabot": {
-        "dev": {
             "name": "TELEGRAM_BOT_NAME",
-                "key": "TELEGRAM_BOT_KEY"
+            "token": "TELEGRAM_BOT_TOKEN"
         },
-        "prod": {
+        "jukebot": {
             "name": "TELEGRAM_BOT_NAME",
-                "key": "TELEGRAM_BOT_KEY"
+            "token": "TELEGRAM_BOT_TOKEN"
         }
     },
-    "jukebot": {
-        "-dev": {
+    "prod": {
+        "bustabot": {
             "name": "TELEGRAM_BOT_NAME",
-                "key": "TELEGRAM_BOT_KEY"
+            "token": "TELEGRAM_BOT_TOKEN"
         },
-        "prod": {
+        "jukebot": {
             "name": "TELEGRAM_BOT_NAME",
-                "key": "TELEGRAM_BOT_KEY"
+            "token": "TELEGRAM_BOT_TOKEN"
         }
     }
 }

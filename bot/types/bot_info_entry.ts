@@ -1,5 +1,5 @@
 class BotInfoEntry {
-    key: string;
+    token: string;
     name: string;
 }
 
