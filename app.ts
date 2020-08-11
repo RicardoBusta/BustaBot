@@ -3,7 +3,7 @@ process.env.NTBA_FIX_319 = "1";
 import botInfo from './bot_info.json';
 import BotInfoEntry from "./bot/types/bot_info_entry";
 import bustabot from "./bot/bustabot/bustabot";
-import jukebot from "./bot/bustabot/bustabot";
+import jukebot from "./bot/jukebot/jukebot";
 import Bot from './bot/bot';
 
 const bots: Array<Bot> = [
@@ -19,30 +19,37 @@ process.argv.forEach(function name(val, index, arr) {
     }
 })
 
+// Firestore integration
+try {
+    let db = new FirebaseFirestore.Firestore({
+        projectId: botInfo["project-id"],
+        keyFilename: "google_key.json",
+    });
+
+    // Initializes the bot with database
+    bots.forEach(bot => {
+        bot.init(db, getBotData(bot.botAlias))
+    });
+} catch (error) {
+    console.log(error);
+}
+
 function getBotData(botAlias: string): BotInfoEntry {
     let buildType = isProd ? "prod" : "dev";
     return botInfo[buildType][botAlias];
 }
 
 bots.forEach(bot => {
-    bot.init(getBotData(bot.alias), isProd);
+    let config = getBotData(bot.alias);
+    if (config) {
+        bot.init(config, isProd);
+    } else {
+        console.log(`No config for bot ${bot.alias}`);
+    }
 });
 
 
-// // Firestore integration
-// try {
-//     let db = new FirebaseFirestore.Firestore({
-//         projectId: botInfo["project-id"],
-//         keyFilename: "google_key.json",
-//     });
 
-//     // Initializes the bot with database
-//     bots.forEach(bot => {
-//         bot.init(db, getBotData(bot.botAlias))
-//     });
-// } catch (error) {
-//     console.log(error);
-// }
 
 // function handleProdApp() {
 //     // console.log("Initializing app in production environment");

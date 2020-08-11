@@ -3,21 +3,21 @@
     "project-id": "busta-chatbots",
     "dev": {
         "bustabot": {
-            "name": "TELEGRAM_BOT_NAME",
+            "username": "TELEGRAM_BOT_NAME",
             "token": "TELEGRAM_BOT_TOKEN"
         },
         "jukebot": {
-            "name": "TELEGRAM_BOT_NAME",
+            "username": "TELEGRAM_BOT_NAME",
             "token": "TELEGRAM_BOT_TOKEN"
         }
     },
     "prod": {
         "bustabot": {
-            "name": "TELEGRAM_BOT_NAME",
+            "username": "TELEGRAM_BOT_NAME",
             "token": "TELEGRAM_BOT_TOKEN"
         },
         "jukebot": {
-            "name": "TELEGRAM_BOT_NAME",
+            "username": "TELEGRAM_BOT_NAME",
             "token": "TELEGRAM_BOT_TOKEN"
         }
     }
