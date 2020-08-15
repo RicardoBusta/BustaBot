@@ -11,7 +11,7 @@ class Bot {
         this.alias = alias;
     }
 
-    init(botInfo: BotInfoEntry, isProd: boolean) {
+    init(botInfo: BotInfoEntry, hostUrl: string, isProd: boolean) {
         let options: TelegramBot.ConstructorOptions = isProd ? {} : {
             polling: true
         }
@@ -29,6 +29,10 @@ class Bot {
             // send a message to the chat acknowledging receipt of their message
             bot.sendMessage(chatId, 'Received your message');
         });
+
+        let webhook = `${hostUrl}/bot${botInfo.token}`;
+        bot.setWebHook(webhook, {});
+        console.log(`Setting webhook to ${webhook}`);
     }
 }
 
