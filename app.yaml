@@ -1,4 +1,15 @@
 service: default
+env: standard
 runtime: nodejs10
 
 instance_class: F1
+
+handlers:
+  - url: .*
+    script: auto
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: 1
+  min_pending_latency: automatic
+  max_pending_latency: automatic
+network: {}
